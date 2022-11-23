@@ -48,7 +48,11 @@ function Login() {
         return;
       }else{
         localStorage.setItem("token", data.token);
-        history.push("/");
+        if(data.role === "teacher"){
+          history.push("/dashboard");
+        }else{
+          history.push("/");
+        }        
       }
   }
 

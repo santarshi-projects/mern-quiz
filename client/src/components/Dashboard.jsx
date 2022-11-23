@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import jwt from "jsonwebtoken";
-import "./Quiz.css";
+import "./Dashboard.css";
 
-function Quiz() {
+function Dashboard() {
   const history = useHistory();
   const location = useLocation();
   const quizData = location.state.quizData;
@@ -152,4 +152,4 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+export default Dashboard;

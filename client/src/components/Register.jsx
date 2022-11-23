@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Register.css";
 import { MdAccountCircle, MdEmail, MdOutlineLock } from "react-icons/md";
@@ -8,7 +8,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("Student");
+  const [role, setRole] = useState("student");
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const history = useHistory();
@@ -38,7 +38,9 @@ function Register() {
 
   function handleSelect(event) {
     const { name, value } = event.target;
-    setRole(value);
+    if (name === "role") {
+      setRole(value);
+    }    
   }
 
   async function handleSubmit(e) {
@@ -58,10 +60,10 @@ function Register() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
-          email,
-          password,
-          role
+          username: username,
+          email: email,
+          password: password,
+          role: role
         }),
       });
 
@@ -134,7 +136,7 @@ function Register() {
         />
         <br />
         <label htmlFor="type">
-          <MdOutlineLock /> Select Type
+          <MdAccountCircle /> Select Type
         </label>
         <br />
         <select

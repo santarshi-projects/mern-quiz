@@ -7,7 +7,6 @@ const Quiz = require("./models/quiz");
 const QuizQuestions = require("./models/quizes");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
 const app = express();
 const saltRounds = parseInt(process.env.SALT_ROUNDS);
 
@@ -43,16 +42,9 @@ app.post("/api/register", (req, res) => {
 app.post("/api/login", async (req, res) => {
   const user = await User.findOne({
     email: req.body.email,
-  });
+  });  
 
-  if(user.role === "Student"){
-    
-  }
-
-  console.log("FOUND USER : ", user)
   if (user) {
-    console.log(req.body.password);
-    console.log(user.password);
     bcrypt.compare(req.body.password, user.password, function (err, result) {
       if (result) {
         const token = jwt.sign(
@@ -65,6 +57,7 @@ app.post("/api/login", async (req, res) => {
         return res.json({
           status: "ok",
           token: token,
+          role: user.role,
         });
       } else {
         return res.json({
@@ -187,8 +180,6 @@ app.get("/api/history", async (req, res) => {
     return res.json({ status: "error", message: "Invalid Token" });
   }
 });
-
-
 
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
